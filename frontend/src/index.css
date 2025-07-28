@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply min-h-screen font-sans transition-colors duration-300 text-gray-800;
+  background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+#root {
+  @apply min-h-screen flex flex-col items-center justify-center;
+  backdrop-filter: blur(2px);
+}
+
+.main-glass {
+  @apply bg-white bg-opacity-70 rounded-2xl shadow-2xl p-6 max-w-2xl mx-auto my-8;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+h1, h2, h3 {
+  @apply font-extrabold text-gray-900 drop-shadow-lg;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  @apply bg-blue-400;
+}
+
+input[type="range"]:focus {
+  @apply outline-none ring-2 ring-blue-300;
+}
+
+button {
+  @apply transition-all duration-200 shadow-lg hover:scale-105 hover:bg-gradient-to-r hover:from-blue-400 hover:to-pink-400;
+}
+
+textarea, input, select {
+  @apply bg-white bg-opacity-80 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-300 focus:border-blue-400;
+  backdrop-filter: blur(2px);
+}
+
+nav {
+  @apply fixed left-1/2 -translate-x-1/2 bottom-4 z-50
+    shadow-2xl bg-white bg-opacity-80 backdrop-blur-lg border border-gray-200
+    rounded-2xl px-6 py-2 flex justify-around max-w-md w-[95vw];
+  transition: box-shadow 0.3s;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: #f3e8ff;
+}
+::-webkit-scrollbar-thumb {
+  background: #a5b4fc;
+  border-radius: 8px;
+}
