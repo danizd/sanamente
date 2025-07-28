@@ -15,8 +15,8 @@ const ProgressPage = () => {
 
         // Filtra por el id del usuario autenticado
         const resultList = await pocketbase.collection('mood_records').getFullList({
-          filter: `user = '${currentUser.id}'`
-        });
+          filter: `user = '${currentUser.id}'`,
+          sort: '-date',});
         setRecords(resultList);
         console.log('Registros obtenidos:', resultList);
       } catch (error) {
@@ -45,7 +45,10 @@ const ProgressPage = () => {
       {records.length > 0 ? (
         <div className="space-y-4">
           {records.map((record) => (
-            <div key={record.id} className="bg-white bg-opacity-80 p-4 rounded-lg shadow-md">
+            <div
+              key={record.id}
+              className="bg-white bg-opacity-80 p-4 rounded-lg shadow-md text-gray-900"
+            >
               <p><strong>Fecha:</strong> {new Date(record.date).toLocaleDateString()}</p>
               <p><strong>Nivel de Ánimo:</strong> {record.mood_level}</p>
               <p><strong>Emociones Positivas:</strong> {record.positive_emotions}</p>

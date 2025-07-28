@@ -2,58 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply min-h-screen font-sans transition-colors duration-300 text-gray-800;
-  background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 0 0% 100%; /* Mejor contraste para texto principal en modo oscuro */
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 80%; /* Mejor contraste para texto secundario en modo oscuro */
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
 }
 
-#root {
-  @apply min-h-screen flex flex-col items-center justify-center;
-  backdrop-filter: blur(2px);
-}
-
-.main-glass {
-  @apply bg-white bg-opacity-70 rounded-2xl shadow-2xl p-6 max-w-2xl mx-auto my-8;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.4);
-}
-
-h1, h2, h3 {
-  @apply font-extrabold text-gray-900 drop-shadow-lg;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  @apply bg-blue-400;
-}
-
-input[type="range"]:focus {
-  @apply outline-none ring-2 ring-blue-300;
-}
-
-button {
-  @apply transition-all duration-200 shadow-lg hover:scale-105 hover:bg-gradient-to-r hover:from-blue-400 hover:to-pink-400;
-}
-
-textarea, input, select {
-  @apply bg-white bg-opacity-80 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-300 focus:border-blue-400;
-  backdrop-filter: blur(2px);
-}
-
-nav {
-  @apply fixed left-1/2 -translate-x-1/2 bottom-4 z-50
-    shadow-2xl bg-white bg-opacity-80 backdrop-blur-lg border border-gray-200
-    rounded-2xl px-6 py-2 flex justify-around max-w-md w-[95vw];
-  transition: box-shadow 0.3s;
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-  background: #f3e8ff;
-}
-::-webkit-scrollbar-thumb {
-  background: #a5b4fc;
-  border-radius: 8px;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }

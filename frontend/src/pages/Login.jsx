@@ -1,62 +1,75 @@
 import { useState } from 'react'
 import { useAuth } from '../hooks/useAuth'
-import { useNavigate } from 'react-router-dom'
+import { Brain } from 'lucide-react' // Importar el icono Brain
 
-const LoginPage = () => {
+export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
   const { login } = useAuth()
-  const navigate = useNavigate()
+  // No se modifica la lógica de navegación, solo se usa para el flujo de autenticación
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError(null)
-    const { error } = await login(email, password)
-    if (error) {
-      setError(error.message)
-    } else {
-      navigate('/')
+    try {
+      await login(email, password)
+    } catch (err) {
+      // Mensaje de error en español
+      setError('Error al iniciar sesión. Por favor, verifica tus credenciales.')
     }
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm"
-      >
-        <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-        <div className="mb-4">
-          <label className="block text-gray-700">Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3 py-2 border rounded-lg"
-            required
-          />
+    <div className="flex items-center justify-center min-h-screen px-4"> {/* Contenedor principal centrado */}
+      <div className="w-full max-w-md p-8 space-y-8 bg-card border rounded-lg shadow-lg"> {/* Tarjeta de formulario con estilos modernos */}
+        <div className="text-center"> {/* Contenedor para el logo y títulos */}
+          <Brain className="w-12 h-12 mx-auto text-primary" /> {/* Icono de la aplicación */}
+          <h1 className="mt-4 text-3xl font-bold text-center text-foreground">Bienvenido a Sanamente</h1> {/* Título principal */}
+          <p className="mt-2 text-center text-muted-foreground">Inicia sesión para continuar tu viaje</p> {/* Subtítulo */}
         </div>
-        <div className="mb-6">
-          <label className="block text-gray-700">Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border rounded-lg"
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
-        >
-          Login
-        </button>
-      </form>
+        <form onSubmit={handleSubmit} className="space-y-6"> {/* Formulario con espaciado mejorado */}
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-foreground"> {/* Etiqueta de campo */}
+              Correo Electrónico
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="block w-full px-3 py-2 mt-1 bg-transparent border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" // Estilos de input modernos
+            />
+          </div>
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-foreground"> {/* Etiqueta de campo */}
+              Contraseña
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="block w-full px-3 py-2 mt-1 bg-transparent border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" // Estilos de input modernos
+            />
+          </div>
+          {error && <p className="text-sm text-red-500">{error}</p>} {/* Mensaje de error */}
+          <div>
+            <button
+              type="submit"
+              className="flex justify-center w-full px-4 py-2 text-sm font-medium text-primary-foreground bg-primary border border-transparent rounded-md shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" // Estilos de botón modernos
+            >
+              Iniciar Sesión
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   )
 }
-
-export default LoginPage
