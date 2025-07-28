@@ -1,3 +1,15 @@
+# Sanamente
+
+Sanamente es una aplicación diseñada para ayudarte a cuidar tu salud mental y bienestar emocional. Permite registrar tu estado de ánimo, emociones, calidad del sueño y pensamientos diarios, ofreciendo una visión de tu progreso a lo largo del tiempo.
+
+## Origen del Proyecto
+
+Esta aplicación fue desarrollada utilizando como base el siguiente repositorio boilerplate:
+
+- [Boilerplate Monorepo: React (Vite) + PocketBase](https://github.com/danizd/base-PocketBase-React-Vite)
+
+---
+
 # Boilerplate Monorepo: React (Vite) + PocketBase
 
 Este es un boilerplate para crear aplicaciones web con un frontend de React (usando Vite) y un backend de PocketBase.
@@ -93,4 +105,4 @@ El frontend sigue una estructura de carpetas por funcionalidad:
 - `src/hooks`: Hooks de React personalizados.
 - `src/pages`: Componentes que representan las páginas de la aplicación.
 - `src/lib`: Clientes o servicios para interactuar con APIs externas.
-"# sanamente" 
+"# sanamente"
