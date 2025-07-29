@@ -12,8 +12,6 @@ Esta aplicación fue desarrollada utilizando como base el siguiente repositorio 
 
 ---
 
-# Boilerplate Monorepo: React (Vite) + PocketBase
-
 Este es un boilerplate para crear aplicaciones web con un frontend de React (usando Vite) y un backend de PocketBase.
 
 ## Requisitos Previos
@@ -33,6 +31,9 @@ El proyecto está organizado como un monorepo con las siguientes carpetas:
 ### 1. Backend (PocketBase)
 
 PocketBase es un backend de código abierto en un solo archivo ejecutable.
+
+![Captura de pantalla 4](screenshots/screenshot4.png)
+
 
 1.  **Descargar PocketBase:**
     - Ve a la [página de descargas de PocketBase](https://pocketbase.io/docs/).
@@ -65,7 +66,16 @@ PocketBase es un backend de código abierto en un solo archivo ejecutable.
     - Ve a la sección "Collections".
     - La colección `users` ya existe por defecto y está lista para ser usada.
 
+## Copia de Seguridad de Colecciones
+
+Se incluye una copia de seguridad de las colecciones de PocketBase en el directorio `backend/backup_colecciones/`."
+
 ### 2. Frontend (React + Vite)
+
+![Captura de pantalla 2](screenshots/screenshot2.png)
+
+![Captura de pantalla 3](screenshots/screenshot3.png)
+
 
 1.  **Navegar al Frontend:**
     ```bash
@@ -109,11 +119,5 @@ El frontend sigue una estructura de carpetas por funcionalidad:
 - `src/pages`: Componentes que representan las páginas de la aplicación.
 - `src/lib`: Clientes o servicios para interactuar con APIs externas.
 
-![Captura de pantalla 2](screenshots/screenshot2.png)
 
-![Captura de pantalla 3](screenshots/screenshot3.png)
-"# sanamente
 
-## Copia de Seguridad de Colecciones
-
-Se incluye una copia de seguridad de las colecciones de PocketBase en el directorio `backend/backup_colecciones/`."
