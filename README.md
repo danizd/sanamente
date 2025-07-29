@@ -55,6 +55,7 @@ PocketBase es un backend de código abierto en un solo archivo ejecutable.
       ./pocketbase serve
       ```
     - El servidor se iniciará en `http://127.0.0.1:8090` por defecto.
+    - La primera vez, se generará un enlace de instalación que se abrirá automáticamente en el navegador para configurar tu primera cuenta de superusuario (también puedes crearla manualmente mediante ./pocketbase superuser create EMAIL PASS).
 
 4.  **Crear la Colección de Usuarios:**
     - Abre `http://127.0.0.1:8090/_/` en tu navegador para acceder al panel de administración.
@@ -105,4 +106,8 @@ El frontend sigue una estructura de carpetas por funcionalidad:
 - `src/hooks`: Hooks de React personalizados.
 - `src/pages`: Componentes que representan las páginas de la aplicación.
 - `src/lib`: Clientes o servicios para interactuar con APIs externas.
-"# sanamente"
+"# sanamente
+
+## Copia de Seguridad de Colecciones
+
+Se incluye una copia de seguridad de las colecciones de PocketBase en el directorio `backend/backup_colecciones/`."
