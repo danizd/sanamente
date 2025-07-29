@@ -1,5 +1,7 @@
 # Sanamente
 
+![Captura de pantalla 1](screenshots/screenshot1.png)
+
 Sanamente es una aplicación diseñada para ayudarte a cuidar tu salud mental y bienestar emocional. Permite registrar tu estado de ánimo, emociones, calidad del sueño y pensamientos diarios, ofreciendo una visión de tu progreso a lo largo del tiempo.
 
 ## Origen del Proyecto
@@ -106,6 +108,10 @@ El frontend sigue una estructura de carpetas por funcionalidad:
 - `src/hooks`: Hooks de React personalizados.
 - `src/pages`: Componentes que representan las páginas de la aplicación.
 - `src/lib`: Clientes o servicios para interactuar con APIs externas.
+
+![Captura de pantalla 2](screenshots/screenshot2.png)
+
+![Captura de pantalla 3](screenshots/screenshot3.png)
 "# sanamente
 
 ## Copia de Seguridad de Colecciones
