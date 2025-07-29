@@ -35,12 +35,29 @@ export default function MainLayout({ children }) {
   return (
     <div className="flex flex-col min-h-screen"> {/* Contenedor principal con altura mínima */}
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"> {/* Encabezado fijo con efecto de desenfoque */}
-        <div className="container flex items-center justify-between h-16 max-w-5xl mx-auto px-4"> {/* Contenedor del encabezado */}
+        <div className="container flex items-center justify-between h-100 max-w-5xl mx-auto px-4"> {/* Contenedor del encabezado */}
           <Link to="/" className="flex items-center gap-2 text-lg font-bold"> {/* Logo y nombre de la aplicación */}
-            <Brain className="w-6 h-6 text-primary" />
-            <span>Sanamente</span>
+            <img
+              src="/assets/sanamente.png"
+              alt="Sanamente logo"
+              className="w-200 h-90 object-cover"
+            />
           </Link>
+
           <div className="flex items-center gap-4"> {/* Controles de usuario y tema */}
+
+          <Link
+            to="/progress"
+            className="px-4 py-2 rounded-lg bg-white/80 text-fuchsia-700 font-semibold shadow hover:bg-white transition-colors"
+          >
+            Progreso
+          </Link>
+          <Link
+            to="/mood/record"
+            className="px-4 py-2 rounded-lg bg-white/80 text-blue-700 font-semibold shadow hover:bg-white transition-colors"
+          >
+            Nuevo registro
+          </Link>
             <button onClick={toggleDarkMode} className="p-2 rounded-full hover:bg-accent"> {/* Botón para alternar modo oscuro/claro */}
               {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
