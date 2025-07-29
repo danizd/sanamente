@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
-import { Smile, Frown, Meh, Calendar, PenSquare } from 'lucide-react' // Importar iconos para mejor representación visual
+import { Smile, Frown, Meh, Calendar, PenSquare, PlusCircle, XCircle } from 'lucide-react' // Importar iconos para mejor representación visual
+import { useState, useEffect } from 'react'
+import { pb } from '../lib/pocketbase'
 
 // Componente de tarjeta simplificado para reutilización y consistencia visual
 const InfoCard = ({ icon, title, children, className }) => (
@@ -15,6 +17,61 @@ const InfoCard = ({ icon, title, children, className }) => (
 
 export default function HomePage() {
   const { user } = useAuth()
+  const [userCustomParameters, setUserCustomParameters] = useState([])
+  const [newCustomParameterName, setNewCustomParameterName] = useState('')
+
+  const popularSuggestions = [
+    'Dolor de cabeza',
+    'Mareos',
+    'Dolor de espalda',
+    'Ansiedad',
+    'Estado de ánimo',
+    'Concentración',
+    'Apetito',
+    'Ejercicio físico',
+  ]
+
+  useEffect(() => {
+    const fetchCustomParameters = async () => {
+      if (user) {
+        try {
+          const records = await pb.collection('user_custom_parameters').getFullList({
+            filter: `user = "${user.id}"`,
+          })
+          setUserCustomParameters(records)
+        } catch (error) {
+          console.error('Error fetching custom parameters:', error)
+        }
+      }
+    }
+    fetchCustomParameters()
+  }, [user])
+
+  const handleAddCustomParameter = async (name) => {
+    if (!user || !name) return
+    try {
+      const newRecord = await pb.collection('user_custom_parameters').create({
+        user: user.id,
+        name: name,
+      })
+      setUserCustomParameters((prev) => [...prev, newRecord])
+      setNewCustomParameterName('') // Clear input after adding
+    } catch (error) {
+      console.error('Error adding custom parameter:', error)
+      alert('Error al añadir el parámetro. Asegúrate de que no exista ya.')
+    }
+  }
+
+  const handleRemoveCustomParameter = async (id) => {
+    if (!user) return
+    try {
+      await pb.collection('user_custom_parameters').delete(id)
+      setUserCustomParameters((prev) => prev.filter((param) => param.id !== id))
+    } catch (error) {
+      console.error('Error removing custom parameter:', error)
+      alert('Error al eliminar el parámetro.')
+    }
+  }
 
   // Función para obtener un saludo personalizado según la hora del día
   const getGreeting = () => {
@@ -53,6 +110,70 @@ export default function HomePage() {
             <span className="font-medium">Negativo</span>
           </Link>
         </div>
+      </InfoCard>
+
+      {/* Sección de Parámetros Personalizados */}
+      <InfoCard
+        icon={<PlusCircle className="w-8 h-8 text-primary" />}
+        title="Añade tus parámetros personalizados"
+      >
+        <p className="mb-4 text-muted-foreground">
+          Añade parámetros que quieras registrar diariamente.
+        </p>
+        <div className="mb-4">
+          <h3 className="text-lg font-semibold mb-2">Sugerencias populares:</h3>
+          <div className="flex flex-wrap gap-2">
+            {popularSuggestions.map((suggestion) => (
+              <button
+                key={suggestion}
+                onClick={() => handleAddCustomParameter(suggestion)}
+                className="px-3 py-1 border border-primary text-primary rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
+              >
+                + {suggestion}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="mb-4">
+          <h3 className="text-lg font-semibold mb-2">Añade el tuyo propio:</h3>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={newCustomParameterName}
+              onChange={(e) => setNewCustomParameterName(e.target.value)}
+              placeholder="Ej. Nivel de energía"
+              className="flex-grow p-2 border border-input rounded-md bg-background text-foreground"
+            />
+            <button
+              onClick={() => handleAddCustomParameter(newCustomParameterName)}
+              className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+            >
+              Añadir
+            </button>
+          </div>
+        </div>
+
+        {userCustomParameters.length > 0 && (
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Tus parámetros:</h3>
+            <div className="flex flex-wrap gap-2">
+              {userCustomParameters.map((param) => (
+                <div
+                  key={param.id}
+                  className="flex items-center gap-2 px-3 py-1 bg-secondary text-secondary-foreground rounded-full"
+                >
+                  <span>{param.name}</span>
+                  <button
+                    onClick={() => handleRemoveCustomParameter(param.id)}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    <XCircle className="w-4 h-4" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </InfoCard>
 
       <div className="grid md:grid-cols-2 gap-8"> {/* Diseño de cuadrícula para actividades */}
