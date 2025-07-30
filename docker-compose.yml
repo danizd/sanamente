@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: pocketbase
+    ports:
+      - "8090:8090"  # Usando el puerto estándar para producción
+    volumes:
+      - ./backend/pb_data:/pb/pb_data
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:8090/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "80:80"  # Puerto estándar HTTP
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=production
+
+networks:
+  app-network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: app-network
+
+# Configuración de logging para producción
+# Descomentar si se necesita logging persistente
+#volumes:
+#  logs:
+#    driver: local
+#    driver_opts:
+#      type: none
+#      o: bind
+#      device: /var/log/app
